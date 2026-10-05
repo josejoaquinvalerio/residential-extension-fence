@@ -15,10 +15,10 @@ let selected=0, filter='all';
 function visibleIndexes(){return sheets.map((s,i)=>filter==='all'||s.discipline===filter?i:null).filter(i=>i!==null);}
 function selectSheet(index){
   selected=index;
-  const s=sheets[index],src=`review-sheet-${index+1}.webp`;
+  const s=sheets[index],src=`review-sheet-${index+1}.webp?v=rev-i`;
   document.querySelectorAll('.sheet-button').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.sheet)===index)));
   document.getElementById('sheet-label').textContent=`${s.code} / ${s.title}`;
-  document.getElementById('sheet-discipline').textContent=`${names[s.discipline]} · REV H DRAFT`;
+  document.getElementById('sheet-discipline').textContent=`${names[s.discipline]} · REV I DRAFT`;
   document.getElementById('sheet-page').textContent=`SHEET ${index+1} OF 8`;
   const image=document.getElementById('sheet-image');image.src=src;image.alt=s.alt;
   const indexes=visibleIndexes(),position=indexes.indexOf(index);
@@ -40,9 +40,9 @@ document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListen
 document.getElementById('previous-sheet').addEventListener('click',()=>{const indexes=visibleIndexes(),p=indexes.indexOf(selected);if(p>0)selectSheet(indexes[p-1]);});
 document.getElementById('next-sheet').addEventListener('click',()=>{const indexes=visibleIndexes(),p=indexes.indexOf(selected);if(p<indexes.length-1)selectSheet(indexes[p+1]);});
 const views={
-  plan:{title:'Ground floor plan',src:'review-floorplan.webp',alt:'Ground floor plan showing proposed service spaces around the existing residence',caption:'A-02 · Ground floor layout from the Revision H draft.'},
-  elevation:{title:'Front elevation',src:'review-front-elevation.webp',alt:'Front elevation showing the existing two-storey residence, new garage, gym canopy and perimeter fence',caption:'A-02 · Front elevation from the Revision H draft.'},
-  perspective:{title:'Revit perspective',src:'review-perspective.webp',alt:'Revit perspective of the proposed residential extension and fence',caption:'A-01 · Model perspective from the supplied drawing set.'}
+  plan:{title:'Ground floor plan',src:'review-floorplan.webp?v=rev-i',alt:'Ground floor plan showing proposed service spaces around the existing residence',caption:'A-02 · Ground floor layout from the Revision I draft.'},
+  elevation:{title:'Front elevation',src:'review-front-elevation.webp?v=rev-i',alt:'Front elevation showing the existing two-storey residence, new garage, gym canopy and perimeter fence',caption:'A-02 · Front elevation from the Revision I draft.'},
+  perspective:{title:'Revit perspective',src:'review-perspective.webp?v=rev-i',alt:'Revit perspective of the proposed residential extension and fence',caption:'A-01 · Model perspective from the supplied drawing set.'}
 };
 document.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>{
   const view=views[button.dataset.view];document.getElementById('view-title').textContent=view.title;document.getElementById('view-caption').textContent=view.caption;
@@ -53,7 +53,7 @@ const dialog=document.getElementById('sheet-dialog'),stage=document.getElementBy
 function resetZoom(){stage.classList.remove('zoomed');zoom.setAttribute('aria-pressed','false');zoom.textContent='Zoom in';stage.scrollTop=0;stage.scrollLeft=0;}
 document.getElementById('enlarge-sheet').addEventListener('click',()=>{
   const s=sheets[selected];document.getElementById('dialog-title').textContent=`${s.code} / ${s.title}`;
-  const image=document.getElementById('dialog-image');image.src=`review-sheet-${selected+1}.webp`;image.alt=`Enlarged ${s.alt}`;resetZoom();dialog.showModal();document.body.style.overflow='hidden';
+  const image=document.getElementById('dialog-image');image.src=`review-sheet-${selected+1}.webp?v=rev-i`;image.alt=`Enlarged ${s.alt}`;resetZoom();dialog.showModal();document.body.style.overflow='hidden';
 });
 zoom.addEventListener('click',()=>{const enabled=stage.classList.toggle('zoomed');zoom.setAttribute('aria-pressed',String(enabled));zoom.textContent=enabled?'Fit to view':'Zoom in';});
 document.getElementById('close-dialog').addEventListener('click',()=>dialog.close());
