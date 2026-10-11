@@ -1,14 +1,14 @@
 'use strict';
 const sheets = [
-  {code:'SP-01',title:'Site planning',detail:'Plot geometry · Areas · Legend',discipline:'survey',alt:'SP-01 site planning preview; private survey details and location map omitted'},
+  {code:'G-01',title:'Site planning',detail:'Plot geometry · Areas · Legend',discipline:'survey',alt:'G-01 site planning preview; private survey details and location map omitted'},
   {code:'A-01',title:'Site & perspective',detail:'Perspective · Site development',discipline:'architecture',alt:'A-01 perspective and site development plan; vicinity map omitted'},
-  {code:'A-02',title:'Floor plan & elevations',detail:'Ground floor · Front · Left side',discipline:'architecture',alt:'A-02 ground floor plan and front and left side elevations'},
+  {code:'A-02',title:'Floor plans & elevations',detail:'Ground · Upper deck · Elevations',discipline:'architecture',alt:'A-02 ground and upper floor plans, front and left side elevations'},
   {code:'S-01',title:'Notes & schedules',detail:'Design criteria · Member schedules',discipline:'structure',alt:'S-01 draft structural notes, design criteria and member schedules'},
-  {code:'S-02',title:'Foundation & roof plans',detail:'Foundations · Roof framing · Roof',discipline:'structure',alt:'S-02 foundation plan, roof framing plan and roof plan'},
-  {code:'S-03',title:'Garage & steel details',detail:'Frame section · Footing · Connections',discipline:'structure',alt:'S-03 garage frame section, footing and structural steel connection details'},
+  {code:'S-02',title:'Foundation & framing plans',detail:'Foundation · Upper floor · Roof',discipline:'structure',alt:'S-02 foundation, upper floor framing, roof framing and roof plans'},
+  {code:'S-03',title:'Carport, deck & stair details',detail:'Sections · Floor edge · Connections',discipline:'structure',alt:'S-03 carport and deck section, stair section, floor edge, tread, column base and roof connection details'},
   {code:'S-04',title:'Fence & boundary walls',detail:'Gates · Fence · CHB wall details',discipline:'structure',alt:'S-04 fence and gate elevation, boundary wall elevation, sections and details'},
-  {code:'E-01',title:'Electrical layouts',detail:'Lighting · Power · Load schedule',discipline:'electrical',alt:'E-01 electrical layouts, load schedule, riser, legend and draft notes'},
-  {code:'P-01',title:'Plumbing layouts',detail:'Water · Sanitary · Drainage details',discipline:'plumbing',alt:'P-01 plumbing layouts, details, legend and draft notes'}
+  {code:'E-01',title:'Electrical layouts',detail:'Ground & upper · Lighting · Power',discipline:'electrical',alt:'E-01 electrical layouts, load schedule, riser, legend and draft notes'},
+  {code:'P-01',title:'Plumbing layouts',detail:'Water · Storm & waste · Deck drains',discipline:'plumbing',alt:'P-01 plumbing layouts, details, legend and draft notes'}
 ];
 const names={survey:'SITE PLANNING',architecture:'ARCHITECTURE',structure:'STRUCTURE',electrical:'ELECTRICAL',plumbing:'PLUMBING'};
 const list=document.getElementById('sheet-list');
@@ -16,7 +16,7 @@ let selected=0, filter='all';
 function visibleIndexes(){return sheets.map((s,i)=>filter==='all'||s.discipline===filter?i:null).filter(i=>i!==null);}
 function selectSheet(index){
   selected=index;
-  const s=sheets[index],src=index===0?'review-survey.webp?v=20261009':`review-sheet-${index}.webp?v=20261009`;
+  const s=sheets[index],src=index===0?'review-survey.webp?v=20261011':`review-sheet-${index}.webp?v=20261011`;
   document.querySelectorAll('.sheet-button').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.sheet)===index)));
   document.getElementById('sheet-label').textContent=`${s.code} / ${s.title}`;
   document.getElementById('sheet-discipline').textContent=`${names[s.discipline]} · DRAFT CLIENT REVIEW`;
@@ -41,9 +41,9 @@ document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListen
 document.getElementById('previous-sheet').addEventListener('click',()=>{const indexes=visibleIndexes(),p=indexes.indexOf(selected);if(p>0)selectSheet(indexes[p-1]);});
 document.getElementById('next-sheet').addEventListener('click',()=>{const indexes=visibleIndexes(),p=indexes.indexOf(selected);if(p<indexes.length-1)selectSheet(indexes[p+1]);});
 const views={
-  plan:{title:'Ground floor plan',src:'review-floorplan.webp?v=20261009',alt:'Ground floor plan showing proposed service spaces around the existing residence',caption:'A-02 · Ground floor layout from the draft.'},
-  elevation:{title:'Front elevation',src:'review-front-elevation.webp?v=20261009',alt:'Front elevation showing the existing two-storey residence, new garage, gym canopy and perimeter fence',caption:'A-02 · Front elevation from the draft.'},
-  perspective:{title:'Revit perspective',src:'review-perspective.webp?v=20261009',alt:'Revit perspective of the proposed residential extension and fence',caption:'A-01 · Model perspective from the supplied drawing set.'}
+  plan:{title:'Ground & upper floor plans',src:'review-floorplan.webp?v=20261011',alt:'Ground and upper floor plans showing the carport, deck, stair and service spaces',caption:'A-02 · Ground and upper floor layouts from the draft.'},
+  elevation:{title:'Front elevation',src:'review-front-elevation.webp?v=20261011',alt:'Front elevation showing the existing two-storey residence, new carport and upper deck, gym canopy and perimeter fence',caption:'A-02 · Front elevation from the draft.'},
+  perspective:{title:'Revit perspective',src:'review-perspective.webp?v=20261011',alt:'Revit perspective of the proposed residential extension and fence',caption:'A-01 · Model perspective from the supplied drawing set.'}
 };
 document.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>{
   const view=views[button.dataset.view];document.getElementById('view-title').textContent=view.title;document.getElementById('view-caption').textContent=view.caption;
@@ -54,7 +54,7 @@ const dialog=document.getElementById('sheet-dialog'),stage=document.getElementBy
 function resetZoom(){stage.classList.remove('zoomed');zoom.setAttribute('aria-pressed','false');zoom.textContent='Zoom in';stage.scrollTop=0;stage.scrollLeft=0;}
 document.getElementById('enlarge-sheet').addEventListener('click',()=>{
   const s=sheets[selected];document.getElementById('dialog-title').textContent=`${s.code} / ${s.title}`;
-  const image=document.getElementById('dialog-image');image.src=selected===0?'review-survey.webp?v=20261009':`review-sheet-${selected}.webp?v=20261009`;image.alt=`Enlarged ${s.alt}`;resetZoom();dialog.showModal();document.body.style.overflow='hidden';
+  const image=document.getElementById('dialog-image');image.src=selected===0?'review-survey.webp?v=20261011':`review-sheet-${selected}.webp?v=20261011`;image.alt=`Enlarged ${s.alt}`;resetZoom();dialog.showModal();document.body.style.overflow='hidden';
 });
 zoom.addEventListener('click',()=>{const enabled=stage.classList.toggle('zoomed');zoom.setAttribute('aria-pressed',String(enabled));zoom.textContent=enabled?'Fit to view':'Zoom in';});
 document.getElementById('close-dialog').addEventListener('click',()=>dialog.close());
@@ -63,4 +63,5 @@ dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();
 document.addEventListener('contextmenu',event=>{if(event.target.tagName==='IMG')event.preventDefault();});
 document.addEventListener('dragstart',event=>{if(event.target.tagName==='IMG')event.preventDefault();});
 selectSheet(1);
+
 
