@@ -41,9 +41,9 @@ document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListen
 document.getElementById('previous-sheet').addEventListener('click',()=>{const indexes=visibleIndexes(),p=indexes.indexOf(selected);if(p>0)selectSheet(indexes[p-1]);});
 document.getElementById('next-sheet').addEventListener('click',()=>{const indexes=visibleIndexes(),p=indexes.indexOf(selected);if(p<indexes.length-1)selectSheet(indexes[p+1]);});
 const views={
-  plan:{title:'Ground & upper floor plans',src:'review-floorplan.webp?v=20261011',alt:'Ground and upper floor plans showing the carport, deck, stair and service spaces',caption:'A-02 · Ground and upper floor layouts from the draft.'},
-  elevation:{title:'Front elevation',src:'review-front-elevation.webp?v=20261011',alt:'Front elevation showing the existing two-storey residence, new carport and upper deck, gym canopy and perimeter fence',caption:'A-02 · Front elevation from the draft.'},
-  perspective:{title:'Revit perspective',src:'review-perspective.webp?v=20261011',alt:'Revit perspective of the proposed residential extension and fence',caption:'A-01 · Model perspective from the supplied drawing set.'}
+  plan:{title:'Ground & upper floor plans',src:'review-floorplan.webp?v=20261011',alt:'Ground and upper floor plans showing the carport, deck, stair and service spaces',caption:'A-02 · Ground floor layout, upper deck and access stair.'},
+  elevation:{title:'Front elevation',src:'review-front-elevation.webp?v=20261011',alt:'Front elevation showing the existing two-storey residence, new carport and upper deck, gym canopy and perimeter fence',caption:'A-02 · Carport, upper deck, residence and front fence.'},
+  perspective:{title:'Revit perspective',src:'review-perspective.webp?v=20261011',alt:'Revit perspective of the proposed residential extension and fence',caption:'A-01 · Perspective of the proposed extension and fence.'}
 };
 document.querySelectorAll('[data-view]').forEach(button=>button.addEventListener('click',()=>{
   const view=views[button.dataset.view];document.getElementById('view-title').textContent=view.title;document.getElementById('view-caption').textContent=view.caption;
