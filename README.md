@@ -6,6 +6,6 @@ Project Presentation: Engr. Jose Joaquin Valerio, MEnM, RCE, RMP
 
 Drawing previews are watermarked derivatives. Private title blocks, survey identifiers and location maps are omitted. Original PDF and native Revit files are not distributed here.
 
-The final page section includes the authorized 33-second REV R native Revit walkthrough, with a poster preview and browser playback controls. Playback starts when the viewer chooses to play it.
+The final page section contains one walkthrough: the 38-second Phase 1 garage video, entering through the pedestrian gate, inspecting the garage ceiling and continuing to the rear laundry/court. A matching poster and browser controls are included. Playback starts when the viewer chooses to play it. The superseded REV R video is removed from the active site.
 
 Publish with GitHub Pages from main and repository root.
